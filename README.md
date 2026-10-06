@@ -5,7 +5,9 @@
 
 [🇪🇸 Leer en español](README.es.md)
 
-`ratmode` is a context-budget discipline for AI coding agents (*Claude Code, Cursor, Aider, Antigravity*). It teaches agents to locate code before reading, justify exploratory lookups, and halt when they begin to wander.
+`ratmode` gives coding agents a disciplined way to navigate repositories without wasting context:
+
+> **`Locate → Hypothesize → Read → Verify → Stop`**
 
 > **Status:** `v0.1, unbenchmarked`. These rules stem from technical reasoning and day-to-day practice, not yet from formal benchmark suites. See [Status & Evaluation](#-status--evaluation).
 
@@ -16,6 +18,33 @@
 When assigned a task, an autonomous agent defaults to over-exploration: it opens files *"just in case"*, browses directory trees out of curiosity, and ingests thousands of irrelevant lines before forming a hypothesis.
 
 This wastes tokens and dilutes critical system instructions with noise, degrading reasoning quality and inducing regressions.
+
+```text
+Without ratmode:
+Task → ls → read files "just in case" → search → read more files → 💸 context wasted
+
+With ratmode:
+Task → Locate → Hypothesis → Targeted read → Checkpoint → Fix → 🛑 Stop
+```
+
+---
+
+## 🏛️ The ratmode System
+
+`ratmode` is not just a prompt; it is a lightweight 3-pillar navigation discipline:
+
+```text
+                    ratmode
+                       │
+        ┌──────────────┼──────────────┐
+        ↓              ↓              ↓
+  Token Firewall    RatIndex      Checkpoints
+   limits waste   targeted map  halts wandering
+```
+
+* **Token Firewall:** Requires a 1-line hypothesis before reading; bans exploratory browsing.
+* **RatIndex:** An optional, verifiable, zero-rot map for large codebases.
+* **Checkpoints:** A hard circuit breaker after inspecting ~10 files or ~2,000 lines without a solution.
 
 ---
 
@@ -72,10 +101,10 @@ If your tool supports the Agent Skills standard, copy this folder into your skil
 ```markdown
 ### Module (`path/dir/`)
 - `identifier`: core responsibility in 3 to 5 words.
-- ⚠️ Gotcha, hidden dependency, or critical technical invariant in 1 line.
+- ⚠️ Gotcha, hidden dependency, or critical technical rule in 1 line.
 ```
 
-An example is available in [`examples/INDICE.md`](examples/INDICE.md). Enclose **only exact identifiers and paths** in backticks: verification scripts extract these tokens directly and will flag any plain text or shell commands as missing symbols.
+An example is available in [`examples/INDEX.md`](examples/INDEX.md). Enclose **only exact identifiers and paths** in backticks: verification scripts extract these tokens directly and will flag any plain text or shell commands as missing symbols.
 
 ### Verification
 
@@ -124,7 +153,8 @@ ratmode/
 │   ├── verify_index.sh # Bash verification script
 │   └── verify_index.ps1# Optimized PowerShell verification script
 └── examples/
-    └── INDICE.md       # RatIndex example
+    ├── INDEX.md        # RatIndex English example
+    └── INDICE.md       # RatIndex Spanish example
 ```
 
 ---

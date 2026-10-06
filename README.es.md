@@ -3,7 +3,11 @@
 > **Context-frugal navigation for coding agents.**  
 > *Frugal, not reckless*: un ahorro que reduce el acierto no es ahorro, porque una respuesta barata pero equivocada cuesta más al corregirla.
 
-`ratmode` es una disciplina de gasto de contexto para agentes de código (Claude Code, Cursor, Aider, Antigravity). Le enseña al agente a localizar antes de leer, a justificar lo que explora y a parar cuando se está perdiendo.
+[🇬🇧 Read in English](README.md)
+
+`ratmode` le da a los agentes de código una forma disciplinada de navegar repositorios sin despilfarrar contexto:
+
+> **`Localizar → Hipótesis → Leer → Verificar → Parar`**
 
 > **Estado:** `v0.1, sin evaluar`. Las reglas salen de razonamiento y práctica, todavía no de mediciones. Ver [Estado y evaluación](#-estado-y-evaluación).
 
@@ -11,7 +15,36 @@
 
 ## ⚡ El problema
 
-Ante una tarea, un agente autónomo tiende a explorar de más: abre archivos "por si acaso", recorre carpetas por curiosidad y acumula código irrelevante antes de tener una hipótesis. Eso cuesta tokens y, además, suele diluir las instrucciones importantes con ruido, lo que empeora las decisiones posteriores.
+Ante una tarea, un agente autónomo tiende a explorar de más: abre archivos "por si acaso", recorre carpetas por curiosidad y acumula código irrelevante antes de tener una hipótesis.
+
+Eso cuesta tokens y, además, suele diluir las instrucciones importantes con ruido, lo que empeora las decisiones posteriores e induce regresiones.
+
+```text
+Sin ratmode:
+Tarea → ls → leer archivos "por si acaso" → buscar → leer más código → 💸 contexto quemado
+
+Con ratmode:
+Tarea → Localizar → Hipótesis → Lectura dirigida → Checkpoint → Solución → 🛑 Parar
+```
+
+---
+
+## 🏛️ El sistema ratmode
+
+`ratmode` no es simplemente un prompt; es una disciplina de navegación estructurada en 3 pilares:
+
+```text
+                    ratmode
+                       │
+        ┌──────────────┼──────────────┐
+        ↓              ↓              ↓
+  Token Firewall    RatIndex      Checkpoints
+  (gasto cero)     (el camino)   (freno al caos)
+```
+
+* **Token Firewall:** Exige una hipótesis en 1 línea antes de abrir archivos; prohíbe explorar por curiosidad.
+* **RatIndex:** Un mapa opcional, verificable y libre de pudrición para bases de código medianas y grandes.
+* **Checkpoints:** Un cortafuegos estricto tras inspeccionar ~10 archivos o ~2.000 líneas sin aislar la causa.
 
 ---
 
@@ -36,7 +69,7 @@ Ante una tarea, un agente autónomo tiende a explorar de más: abre archivos "po
 Funciona en cualquier herramienta. Pégalo en `CLAUDE.md`, `AGENTS.md` o `GEMINI.md`. Para Cursor va en sus reglas de proyecto (`.cursor/rules` o `.cursorrules`) y para Aider en un archivo de convenciones (`CONVENTIONS.md`); comprueba la ruta exacta en la documentación de cada herramienta:
 
 ```markdown
-## Disciplina de gasto (ratmode)
+## Navegación económica (ratmode)
 - Localiza por símbolo, ruta de endpoint o ID (`rg -n` o `grep -n`) antes de abrir archivos; no explores por curiosidad.
 - Cuando explores, declara en una línea qué buscas. No hace falta para archivos ya señalados.
 - Lee el símbolo completo con sus imports y tipos (archivo entero si tiene <300 líneas), no ventanas fijas.
@@ -120,7 +153,8 @@ ratmode/
 │   ├── verify_index.sh # Verificador Bash
 │   └── verify_index.ps1# Verificador PowerShell
 └── examples/
-    └── INDICE.md       # Ejemplo de RatIndex
+    ├── INDEX.md        # Ejemplo de RatIndex en inglés
+    └── INDICE.md       # Ejemplo de RatIndex en español
 ```
 
 ---
