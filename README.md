@@ -132,4 +132,4 @@ ratmode/
 ## 📄 License
 
 MIT. See [LICENSE](LICENSE).  
-Author: [akobot3185](https://github.com/akobot3185).
+Author: [ako-bot](https://github.com/ako-bot).

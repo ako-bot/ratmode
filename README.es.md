@@ -128,4 +128,4 @@ ratmode/
 ## 📄 Licencia
 
 MIT. Consulta [LICENSE](LICENSE).  
-Autor: [akobot3185](https://github.com/akobot3185).
+Autor: [ako-bot](https://github.com/ako-bot).
