@@ -1,12 +1,12 @@
 <#
 .SYNOPSIS
-    Verifies that every identifier or path enclosed in backticks in INDICE.md exists physically in the repository.
+    Verifies that every identifier or path enclosed in backticks in INDEX.md exists physically in the repository.
 .DESCRIPTION
-    Usage: .\scripts\verify_index.ps1 [-IndexFile "INDICE.md"] [-RootPath "."]
+    Usage: .\scripts\verify_index.ps1 [-IndexFile "INDEX.md"] [-RootPath "."]
     Exit code: 0 if no discrepancies, 1 if any token is missing.
 #>
 param(
-    [string]$IndexFile = "INDICE.md",
+    [string]$IndexFile = "INDEX.md",
     [string]$RootPath = "."
 )
 

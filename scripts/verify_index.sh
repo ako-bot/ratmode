@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Verifies that every `identifier` or `path/` in backticks in the index
 # physically exists in the repository.
-# Usage: ./scripts/verify_index.sh [INDICE.md] [root]
+# Usage: ./scripts/verify_index.sh [INDEX.md] [root]
 # Exit code: 0 if all match, 1 if discrepancies exist.
 
-idx="${1:-INDICE.md}"
+idx="${1:-INDEX.md}"
 root="${2:-.}"
 
 if [ ! -f "$idx" ]; then

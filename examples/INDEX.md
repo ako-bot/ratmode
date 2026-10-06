@@ -1,6 +1,7 @@
 # Repository Navigation Map (Example)
 
 > Generated with RatIndex (mapping module of ratmode v0.1). Code is the single source of truth.
+> Illustrative example only: the paths below do not exist in this repo, so it will not pass verification here.
 
 ### Core Authentication (`src/auth/`)
 - `AuthService`: Orchestrator for login, session tokens, and refresh flows.
