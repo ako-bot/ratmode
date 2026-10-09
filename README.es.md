@@ -87,18 +87,6 @@ Funciona en cualquier herramienta con agentes. Añade este bloque a `CLAUDE.md`,
 - If INDEX.md exists, keep listed symbols updated. If code and index disagree, code wins.
 ```
 
-**Explicación de las reglas:**
-- **Heurísticas, no cuotas:** Si una regla cuesta más contexto del que ahorra en la tarea actual, omítela.
-- **Reglas del repo primero:** Consulta las instrucciones del proyecto antes de explorar; nunca navegues por curiosidad.
-- **Localizar antes de abrir:** Busca por símbolo, ruta de endpoint o ID (`rg -n` o `grep -n`) antes de leer archivos.
-- **Hipótesis previa provisional:** Declara en una línea qué buscas y descártala de inmediato si la búsqueda la contradice.
-- **Mínima unidad semántica:** Lee funciones o métodos completos con sus tipos e imports (archivo entero si <300 líneas), no ventanas fijas arbitrarias.
-- **Comprobar llamadores:** Inspecciona referencias (LSP/AST o `grep -nw`) antes de alterar firmas públicas.
-- **Búsqueda global limitada:** Permite búsqueda amplia pero acotada (`-w`, `-l`, `head`, excluyendo dependencias).
-- **Checkpoint de exploración:** Tras ~10 archivos o ~2.000 líneas sin nueva evidencia, para y resume para evitar la deriva.
-- **Respuestas directas:** Diagnóstico técnico y diffs mínimos, sin relleno conversacional.
-- **Mantenimiento del índice:** Si existe `INDEX.md`, mantén los símbolos al día; ante discrepancias, el código manda.
-
 ### Opción B: Instalar como Agent Skill
 Si tu herramienta soporta el estándar de Agent Skills, copia esta carpeta en tu directorio de skills (p. ej., en Claude Code: `.claude/skills/ratmode/` a nivel de proyecto o `~/.claude/skills/ratmode/` de forma global). El agente lo activará automáticamente cuando se use alguno de estos disparadores: "rat mode", "ratmode", "save context", "reduce tokens", "create an index", "INDEX.md", o al añadir reglas de navegación a `CLAUDE.md`, `AGENTS.md` o `GEMINI.md`.
 

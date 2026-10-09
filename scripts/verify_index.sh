@@ -35,7 +35,7 @@ while IFS= read -r tok; do
   fi
 
   # Symbol: whole-word matching if alphanumeric identifier
-  w=""
+  w=""  # intentionally unquoted below: empty means no flag
   [[ "$tok" =~ ^[A-Za-z0-9_]+$ ]] && w="-w"
 
   if ! grep -rqF $w "${excl[@]}" -- "$tok" "$root" 2>/dev/null; then
