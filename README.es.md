@@ -9,7 +9,7 @@
 
 `ratmode` proporciona a los agentes de código una disciplina operativa para navegar repositorios sin desperdiciar contexto:
 
-> **`Locate → Hypothesize → Read → Verify → Stop`**
+> **`Hypothesize → Locate → Read → Verify → Stop`**
 
 > **Estado:** `v0.1, sin evaluar`. Estas reglas provienen del razonamiento técnico y la práctica diaria, todavía no de suites formales de benchmarks. Consulta [Estado y evaluación](#-estado-y-evaluación).
 
@@ -26,7 +26,7 @@ Sin ratmode:
 Tarea → ls → leer archivos "por si acaso" → buscar → leer más archivos → 💸 contexto desperdiciado
 
 Con ratmode:
-Tarea → Localizar → Hipótesis → Lectura dirigida → Checkpoint → Solución → 🛑 Parar
+Tarea → Hipótesis → Localizar → Lectura dirigida → Checkpoint → Solución → 🛑 Parar
 ```
 
 ---
@@ -87,18 +87,6 @@ Funciona en cualquier herramienta con agentes. Añade este bloque a `CLAUDE.md`,
 - If INDEX.md exists, keep listed symbols updated. If code and index disagree, code wins.
 ```
 
-**Explicación de las reglas:**
-- **Heurísticas, no cuotas:** Si una regla cuesta más contexto del que ahorra en la tarea actual, omítela.
-- **Reglas del repo primero:** Consulta las instrucciones del proyecto antes de explorar; nunca navegues por curiosidad.
-- **Localizar antes de abrir:** Busca por símbolo, ruta de endpoint o ID (`rg -n` o `grep -n`) antes de leer archivos.
-- **Hipótesis previa provisional:** Declara en una línea qué buscas y descártala de inmediato si la búsqueda la contradice.
-- **Mínima unidad semántica:** Lee funciones o métodos completos con sus tipos e imports (archivo entero si <300 líneas), no ventanas fijas arbitrarias.
-- **Comprobar llamadores:** Inspecciona referencias (LSP/AST o `grep -nw`) antes de alterar firmas públicas.
-- **Búsqueda global limitada:** Permite búsqueda amplia pero acotada (`-w`, `-l`, `head`, excluyendo dependencias).
-- **Checkpoint de exploración:** Tras ~10 archivos o ~2.000 líneas sin nueva evidencia, para y resume para evitar la deriva.
-- **Respuestas directas:** Diagnóstico técnico y diffs mínimos, sin relleno conversacional.
-- **Mantenimiento del índice:** Si existe `INDEX.md`, mantén los símbolos al día; ante discrepancias, el código manda.
-
 ### Opción B: Instalar como Agent Skill
 Si tu herramienta soporta el estándar de Agent Skills, copia esta carpeta en tu directorio de skills (p. ej., en Claude Code: `.claude/skills/ratmode/` a nivel de proyecto o `~/.claude/skills/ratmode/` de forma global). El agente lo activará automáticamente cuando se use alguno de estos disparadores: "rat mode", "ratmode", "save context", "reduce tokens", "create an index", "INDEX.md", o al añadir reglas de navegación a `CLAUDE.md`, `AGENTS.md` o `GEMINI.md`.
 
@@ -106,7 +94,7 @@ Si tu herramienta soporta el estándar de Agent Skills, copia esta carpeta en tu
 
 ## 🗺️ RatIndex: Mapa estructuralmente verificado (Opcional)
 
-`RatIndex` es el módulo opcional de mapeo de `ratmode`: una tabla de enrutamiento única en `INDEX.md` que orienta al agente hacia los módulos clave. Garantiza **integridad referencial** (los símbolos existen físicamente en la base de código), aunque no frescura semántica.
+`RatIndex` es el módulo opcional de mapeo de `ratmode`: una tabla de enrutamiento única en `INDEX.md` que orienta al agente hacia los módulos clave. La verificación es una **comprobación textual de existencia**: cada identificador o ruta listada aparece en algún lugar de la base de código. No confirma que el símbolo esté definido (una coincidencia en un comentario o string cuenta) ni que su descripción siga siendo correcta.
 
 Solo compensa crearlo en repositorios grandes con un amplio espacio de búsqueda; en bases de código pequeñas, mantener un mapa cuesta más contexto del que ahorra.
 
