@@ -9,7 +9,7 @@
 
 `ratmode` proporciona a los agentes de código una disciplina operativa para navegar repositorios sin desperdiciar contexto:
 
-> **`Locate → Hypothesize → Read → Verify → Stop`**
+> **`Hypothesize → Locate → Read → Verify → Stop`**
 
 > **Estado:** `v0.1, sin evaluar`. Estas reglas provienen del razonamiento técnico y la práctica diaria, todavía no de suites formales de benchmarks. Consulta [Estado y evaluación](#-estado-y-evaluación).
 
@@ -26,7 +26,7 @@ Sin ratmode:
 Tarea → ls → leer archivos "por si acaso" → buscar → leer más archivos → 💸 contexto desperdiciado
 
 Con ratmode:
-Tarea → Localizar → Hipótesis → Lectura dirigida → Checkpoint → Solución → 🛑 Parar
+Tarea → Hipótesis → Localizar → Lectura dirigida → Checkpoint → Solución → 🛑 Parar
 ```
 
 ---
@@ -94,7 +94,7 @@ Si tu herramienta soporta el estándar de Agent Skills, copia esta carpeta en tu
 
 ## 🗺️ RatIndex: Mapa estructuralmente verificado (Opcional)
 
-`RatIndex` es el módulo opcional de mapeo de `ratmode`: una tabla de enrutamiento única en `INDEX.md` que orienta al agente hacia los módulos clave. Garantiza **integridad referencial** (los símbolos existen físicamente en la base de código), aunque no frescura semántica.
+`RatIndex` es el módulo opcional de mapeo de `ratmode`: una tabla de enrutamiento única en `INDEX.md` que orienta al agente hacia los módulos clave. La verificación es una **comprobación textual de existencia**: cada identificador o ruta listada aparece en algún lugar de la base de código. No confirma que el símbolo esté definido (una coincidencia en un comentario o string cuenta) ni que su descripción siga siendo correcta.
 
 Solo compensa crearlo en repositorios grandes con un amplio espacio de búsqueda; en bases de código pequeñas, mantener un mapa cuesta más contexto del que ahorra.
 

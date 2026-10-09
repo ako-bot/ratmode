@@ -7,7 +7,7 @@
 
 `ratmode` gives coding agents a disciplined way to navigate repositories without wasting context:
 
-> **`Locate → Hypothesize → Read → Verify → Stop`**
+> **`Hypothesize → Locate → Read → Verify → Stop`**
 
 > **Status:** `v0.1, unbenchmarked`. These rules stem from technical reasoning and day-to-day practice, not yet from formal benchmark suites. See [Status & Evaluation](#-status--evaluation).
 
@@ -24,7 +24,7 @@ Without ratmode:
 Task → ls → read files "just in case" → search → read more files → 💸 context wasted
 
 With ratmode:
-Task → Locate → Hypothesis → Targeted read → Checkpoint → Fix → 🛑 Stop
+Task → Hypothesis → Locate → Targeted read → Checkpoint → Fix → 🛑 Stop
 ```
 
 ---
@@ -92,7 +92,7 @@ If your tool supports the Agent Skills standard, copy this folder into your skil
 
 ## 🗺️ RatIndex: Structurally Verified Map (Optional)
 
-`RatIndex` is the optional repo-mapping module of `ratmode`: a single `INDEX.md` routing table that points the agent toward key modules. It guarantees **referential integrity** (symbols physically exist in the codebase), though not semantic freshness.
+`RatIndex` is the optional repo-mapping module of `ratmode`: a single `INDEX.md` routing table that points the agent toward key modules. Verification is a **textual existence check**: every listed identifier or path appears somewhere in the codebase. It does not confirm that a symbol is defined (a match in a comment or string counts) nor that its description is still accurate.
 
 It is only worth creating in larger repositories with wide search spaces; in small codebases, maintaining a map costs more context than it saves.
 

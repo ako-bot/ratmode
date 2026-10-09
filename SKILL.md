@@ -31,7 +31,7 @@ When reached:
 
 ## 3. Do You Need a Repo Map? (RatIndex: Structurally Verified Map)
 
-RatIndex provides a **structurally verified navigation map**. Verification guarantees referential integrity (symbols physically exist in the codebase), though not semantic freshness.
+RatIndex provides a **structurally verified navigation map**. Verification is a textual existence check: every listed token appears somewhere in the codebase. It does not prove a symbol is defined (matches in comments or strings count) nor that its description is still accurate. Prefer distinctive identifiers; generic names (`save`, `init`) verify trivially.
 
 Decide by count of source files (excluding dependencies and generated code): what makes navigation expensive is the number of candidate locations to search, not total lines.
 
